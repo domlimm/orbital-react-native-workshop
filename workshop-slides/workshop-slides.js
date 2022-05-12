@@ -1,7 +1,4 @@
 // Arrow Functions
-
-import { FlatList, TextInput, TouchableOpacity } from "react-native-web";
-
 // ES5
 var x = function(x, y) {
    return x * y;
