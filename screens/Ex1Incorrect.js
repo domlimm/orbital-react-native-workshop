@@ -1,18 +1,55 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ToastAndroid } from 'react-native';
 import React from 'react';
 
 const Ex1Incorrect = () => {
+    const showToast = () => {
+        ToastAndroid.show(
+            "This will not work, let's look at states!",
+            ToastAndroid.SHORT
+        );
+    };
+
     let count = 0;
 
     return (
-        <View>
-            <Text>{count}</Text>
-            <Button title='Increment' onPress={() => ++count} />
-            <Button title='Decrement' onPress={() => --count} />
+        <View style={styles.container}>
+            <Text style={styles.text}>{`Counter: ${count}`}</Text>
+            <View style={styles.buttonContainer}>
+                <Button
+                    title='Increment'
+                    onPress={() => {
+                        ++count;
+                        showToast();
+                    }}
+                />
+                <Button
+                    title='Decrement'
+                    onPress={() => {
+                        --count;
+                        showToast();
+                    }}
+                />
+            </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#EBECF0',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonContainer: {
+        width: '80%'
+    },
+    button: {
+        marginVertical: 8
+    },
+    text: {
+        marginVertical: 10
+    }
+});
 
 export default Ex1Incorrect;

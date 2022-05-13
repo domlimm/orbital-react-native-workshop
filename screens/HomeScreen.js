@@ -11,21 +11,21 @@ const HomeScreen = ({ navigation }) => {
             <Pressable
                 onPress={() => navigation.navigate('Ex1Incorrect')}
                 style={styles.button}
-                android_ripple={{ color: 'FFF' }}
+                android_ripple={{ color: '#FFF' }}
             >
                 <Text style={styles.text}>Exercise 1 (Incorrect)</Text>
             </Pressable>
             <Pressable
                 onPress={() => navigation.navigate('Ex1Solution')}
                 style={styles.button}
-                android_ripple={{ color: 'FFF' }}
+                android_ripple={{ color: '#FFF' }}
             >
                 <Text style={styles.text}>Exercise 1 (Solution)</Text>
             </Pressable>
             <Pressable
                 style={styles.button}
-                android_ripple={{ color: 'FFF' }}
                 onPress={showToast}
+                android_ripple={{ color: '#FFF' }}
             >
                 <Text style={styles.text}>21 May Workshop</Text>
             </Pressable>
@@ -35,6 +35,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#EBECF0',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
