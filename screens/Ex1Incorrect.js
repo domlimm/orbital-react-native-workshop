@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Button, ToastAndroid } from 'react-native';
 import React from 'react';
+import { StyleSheet, Text, View, Button, ToastAndroid } from 'react-native';
 
 const Ex1Incorrect = () => {
     const showToast = () => {
