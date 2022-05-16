@@ -34,6 +34,8 @@ const Ex1Incorrect = () => {
     );
 };
 
+export default Ex1Incorrect;
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#EBECF0',
@@ -51,5 +53,3 @@ const styles = StyleSheet.create({
         marginVertical: 10
     }
 });
-
-export default Ex1Incorrect;

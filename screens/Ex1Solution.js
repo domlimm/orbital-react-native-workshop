@@ -15,6 +15,8 @@ const Ex1Solution = () => {
     );
 };
 
+export default Ex1Solution;
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#EBECF0',
@@ -32,5 +34,3 @@ const styles = StyleSheet.create({
         marginVertical: 10
     }
 });
-
-export default Ex1Solution;
