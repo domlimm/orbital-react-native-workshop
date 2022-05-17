@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import Ex1Incorrect from '../screens/Ex1Incorrect';
 import Ex1Solution from '../screens/Ex1Solution';
 import Ex2Solution from '../screens/Ex2Solution';
+import ReduxTwo from '../screens/ReduxTwo';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,11 @@ const AppNavigator = () => (
                 name='Ex2Solution'
                 options={{ title: 'Exercise 2 (Solution)' }}
                 component={Ex2Solution}
+            />
+            <Stack.Screen
+                name='ReduxTwo'
+                options={{ title: 'Redux (By 2)' }}
+                component={ReduxTwo}
             />
         </Stack.Navigator>
     </NavigationContainer>

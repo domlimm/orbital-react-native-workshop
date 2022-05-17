@@ -31,6 +31,13 @@ const HomeScreen = ({ navigation }) => {
             </Pressable>
             <Pressable
                 style={styles.button}
+                onPress={() => navigation.navigate('ReduxTwo')}
+                android_ripple={{ color: '#FFF' }}
+            >
+                <Text style={styles.text}>Redux 1 (By 2)</Text>
+            </Pressable>
+            <Pressable
+                style={styles.button}
                 onPress={showToast}
                 android_ripple={{ color: '#FFF' }}
             >
