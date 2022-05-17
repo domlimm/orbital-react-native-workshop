@@ -12,10 +12,21 @@ export const countSlice = createSlice({
         },
         decrementByOne: state => {
             state.count -= 1;
+        },
+        incrementByInput: (state, action) => {
+            state.count += action.payload.input;
+        },
+        decrementByInput: (state, action) => {
+            state.count -= action.payload.input;
         }
     }
 });
 
 // Export actions so that we can dispatch and invoke the functions from anywhere in our application
-export const { incrementByOne, decrementByOne } = countSlice.actions;
+export const {
+    incrementByOne,
+    decrementByOne,
+    incrementByInput,
+    decrementByInput
+} = countSlice.actions;
 export default countSlice.reducer;

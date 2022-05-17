@@ -38,10 +38,10 @@ const HomeScreen = ({ navigation }) => {
             </Pressable>
             <Pressable
                 style={styles.button}
-                onPress={() => navigation.navigate('ReduxTwo')}
+                onPress={() => navigation.navigate('CountRedux')}
                 android_ripple={{ color: '#FFF' }}
             >
-                <Text style={styles.text}>Redux 1 (By 2)</Text>
+                <Text style={styles.text}>Redux Count Example</Text>
             </Pressable>
             <Pressable
                 style={styles.button}

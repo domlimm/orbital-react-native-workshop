@@ -7,7 +7,7 @@ import Ex1Incorrect from '../screens/Ex1Incorrect';
 import Ex1Solution from '../screens/Ex1Solution';
 import Ex1SolutionRedux from '../screens/Ex1SolutionRedux';
 import Ex2Solution from '../screens/Ex2Solution';
-import ReduxTwo from '../screens/ReduxTwo';
+import CountRedux from '../screens/CountRedux';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,9 +40,9 @@ const AppNavigator = () => (
                 component={Ex2Solution}
             />
             <Stack.Screen
-                name='ReduxTwo'
-                options={{ title: 'Redux (By 2)' }}
-                component={ReduxTwo}
+                name='CountRedux'
+                options={{ title: 'Count with specific input' }}
+                component={CountRedux}
             />
         </Stack.Navigator>
     </NavigationContainer>
