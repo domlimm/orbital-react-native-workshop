@@ -23,6 +23,13 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.text}>Exercise 1 (Solution)</Text>
             </Pressable>
             <Pressable
+                onPress={() => navigation.navigate('Ex1SolutionRedux')}
+                style={styles.button}
+                android_ripple={{ color: '#FFF' }}
+            >
+                <Text style={styles.text}>Exercise 1 (Solution Redux)</Text>
+            </Pressable>
+            <Pressable
                 style={styles.button}
                 onPress={() => navigation.navigate('Ex2Solution')}
                 android_ripple={{ color: '#FFF' }}

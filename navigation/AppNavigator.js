@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import Ex1Incorrect from '../screens/Ex1Incorrect';
 import Ex1Solution from '../screens/Ex1Solution';
+import Ex1SolutionRedux from '../screens/Ex1SolutionRedux';
 import Ex2Solution from '../screens/Ex2Solution';
 import ReduxTwo from '../screens/ReduxTwo';
 
@@ -27,6 +28,11 @@ const AppNavigator = () => (
                 name='Ex1Solution'
                 options={{ title: 'Exercise 1 (Solution)' }}
                 component={Ex1Solution}
+            />
+            <Stack.Screen
+                name='Ex1SolutionRedux'
+                options={{ title: 'Exercise 1 (Solution Redux)' }}
+                component={Ex1SolutionRedux}
             />
             <Stack.Screen
                 name='Ex2Solution'

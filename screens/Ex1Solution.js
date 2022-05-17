@@ -4,12 +4,15 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 const Ex1Solution = () => {
     const [count, setCount] = useState(0);
 
+    const increment = () => setCount(count + 1);
+    const decrement = () => setCount(count - 1);
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{`Counter: ${count}`}</Text>
             <View style={styles.buttonContainer}>
-                <Button title='Increment' onPress={() => setCount(count + 1)} />
-                <Button title='Decrement' onPress={() => setCount(count - 1)} />
+                <Button title='Increment' onPress={increment} />
+                <Button title='Decrement' onPress={decrement} />
             </View>
         </View>
     );
