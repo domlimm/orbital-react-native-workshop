@@ -2,6 +2,10 @@
 
 This is the repository that holds all the codes used in the workshop on 14 & 21 May.
 
+## Any Queries?
+
+Please feel free to ping! You can find the emails from the mailing of the workshop details. More than happy to help!
+
 ## To run the application
 
 Ensure that you have `node`, `npm` and `expo-cli` installed.
