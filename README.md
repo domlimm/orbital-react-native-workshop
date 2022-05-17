@@ -4,7 +4,7 @@ This is the repository that holds all the codes used in the workshop on 14 & 21 
 
 ## Any Queries?
 
-Please feel free to ping! You can find the emails from the mailing of the workshop details. More than happy to help!
+Please feel free to ping! You can find the emails from the mailing of the workshop details or you can create an issue from the Issues tab. More than happy to help!
 
 ## To run the application
 
