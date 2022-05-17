@@ -12,7 +12,11 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = () => (
     <NavigationContainer>
         <Stack.Navigator initialRouteName='Home'>
-            <Stack.Screen name='Home' component={HomeScreen} />
+            <Stack.Screen
+                name='Orbital 22 React Native Workshop'
+                options={{ title: 'Orbital 22 React Native Workshop' }}
+                component={HomeScreen}
+            />
             <Stack.Screen
                 name='Ex1Incorrect'
                 options={{ title: 'Exercise 1 (Incorrect)' }}
