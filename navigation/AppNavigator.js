@@ -2,22 +2,34 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from '../screens/HomeScreen';
-import Ex1Incorrect from '../screens/Ex1Incorrect';
-import Ex1Solution from '../screens/Ex1Solution';
-import Ex1SolutionRedux from '../screens/Ex1SolutionRedux';
-import Ex2Solution from '../screens/Ex2Solution';
-import CountRedux from '../screens/CountRedux';
+import {
+    MainScreen,
+    Ex1Incorrect,
+    Ex1Solution,
+    Ex2Solution,
+    Ex1SolutionRedux,
+    CountRedux,
+    LoginScreen,
+    SignUpScreen
+} from '../screens';
 
 const Stack = createNativeStackNavigator();
+const TodoStack = createNativeStackNavigator();
+
+const TodoNavigator = () => (
+    <TodoStack.Navigator>
+        <TodoStack.Screen name='Login' component={LoginScreen} />
+        <TodoStack.Screen name='SignUp' component={SignUpScreen} />
+    </TodoStack.Navigator>
+);
 
 const AppNavigator = () => (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName='Home'>
+        <Stack.Navigator initialRouteName='Main'>
             <Stack.Screen
-                name='Orbital 22 React Native Workshop'
+                name='Main'
                 options={{ title: 'Orbital 22 React Native Workshop' }}
-                component={HomeScreen}
+                component={MainScreen}
             />
             <Stack.Screen
                 name='Ex1Incorrect'
@@ -44,6 +56,7 @@ const AppNavigator = () => (
                 options={{ title: 'Count with specific input' }}
                 component={CountRedux}
             />
+            <Stack.Screen name='Todo' component={TodoNavigator} />
         </Stack.Navigator>
     </NavigationContainer>
 );
