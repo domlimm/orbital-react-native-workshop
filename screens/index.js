@@ -7,5 +7,6 @@ export { default as Ex1SolutionRedux } from './Ex1SolutionRedux';
 export { default as CountRedux } from './CountRedux';
 
 // 21 May
+export { default as HomeScreen } from './HomeScreen';
 export { default as LoginScreen } from './LoginScreen';
 export { default as SignUpScreen } from './SignUpScreen';

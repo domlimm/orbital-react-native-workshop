@@ -1,11 +1,7 @@
-import { StyleSheet, View, Pressable, Text, ToastAndroid } from 'react-native';
+import { StyleSheet, View, Pressable, Text } from 'react-native';
 import React from 'react';
 
-const HomeScreen = ({ navigation }) => {
-    const showToast = () => {
-        ToastAndroid.show('Coming soon...!', ToastAndroid.SHORT);
-    };
-
+const MainScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Pressable
@@ -45,16 +41,16 @@ const HomeScreen = ({ navigation }) => {
             </Pressable>
             <Pressable
                 style={styles.button}
-                onPress={showToast}
+                onPress={() => navigation.navigate('Todo')}
                 android_ripple={{ color: '#FFF' }}
             >
-                <Text style={styles.text}>21 May Workshop</Text>
+                <Text style={styles.text}>TodoList</Text>
             </Pressable>
         </View>
     );
 };
 
-export default HomeScreen;
+export default MainScreen;
 
 const styles = StyleSheet.create({
     container: {

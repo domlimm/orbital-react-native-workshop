@@ -9,6 +9,7 @@ import {
     Ex2Solution,
     Ex1SolutionRedux,
     CountRedux,
+    HomeScreen,
     LoginScreen,
     SignUpScreen
 } from '../screens';
@@ -18,8 +19,21 @@ const TodoStack = createNativeStackNavigator();
 
 const TodoNavigator = () => (
     <TodoStack.Navigator>
-        <TodoStack.Screen name='Login' component={LoginScreen} />
-        <TodoStack.Screen name='SignUp' component={SignUpScreen} />
+        <TodoStack.Screen
+            name='Home'
+            options={{ headerTitle: 'TodoList' }}
+            component={HomeScreen}
+        />
+        <TodoStack.Screen
+            name='Login'
+            options={{ headerTitle: 'Login' }}
+            component={LoginScreen}
+        />
+        <TodoStack.Screen
+            name='SignUp'
+            options={{ headerTitle: 'Sign Up' }}
+            component={SignUpScreen}
+        />
     </TodoStack.Navigator>
 );
 
@@ -56,7 +70,11 @@ const AppNavigator = () => (
                 options={{ title: 'Count with specific input' }}
                 component={CountRedux}
             />
-            <Stack.Screen name='Todo' component={TodoNavigator} />
+            <Stack.Screen
+                name='Todo'
+                options={{ headerShown: false }}
+                component={TodoNavigator}
+            />
         </Stack.Navigator>
     </NavigationContainer>
 );
