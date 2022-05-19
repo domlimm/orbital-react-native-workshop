@@ -8,6 +8,10 @@ const HomeScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const loginHandler = () => {};
+
+    const signUpHandler = () => {};
+
     return (
         <View style={styles.container}>
             <Text style={[styles.welcomeText, styles.boldText]}>
