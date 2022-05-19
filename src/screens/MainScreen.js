@@ -41,7 +41,7 @@ const MainScreen = ({ navigation }) => {
             </Pressable>
             <Pressable
                 style={styles.button}
-                onPress={() => navigation.navigate('Todo')}
+                onPress={() => navigation.navigate('Auth')}
                 android_ripple={{ color: '#FFF' }}
             >
                 <Text style={styles.text}>TodoList</Text>
