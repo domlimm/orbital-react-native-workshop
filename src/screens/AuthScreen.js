@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ToastAndroid } from 'react-native';
+import { StyleSheet, View, Text, ToastAndroid, Keyboard } from 'react-native';
 import React, { useState } from 'react';
 import {
     createUserWithEmailAndPassword,
@@ -27,6 +27,7 @@ const AuthScreen = ({ navigation }) => {
 
                 console.log(user);
 
+                restoreForm();
                 navigation.navigate('Home');
             })
             .catch(error => {
@@ -44,6 +45,7 @@ const AuthScreen = ({ navigation }) => {
 
                 console.log(user);
 
+                restoreForm();
                 signUpToast();
             })
             .catch(error => {
@@ -52,6 +54,12 @@ const AuthScreen = ({ navigation }) => {
 
                 console.error('[signUpHandler]', errorCode, errorMessage);
             });
+    };
+
+    const restoreForm = () => {
+        setEmail('');
+        setPassword('');
+        Keyboard.dismiss();
     };
 
     return (
