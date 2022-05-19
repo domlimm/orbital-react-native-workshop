@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import AppNavigator from './navigation/AppNavigator';
 import { store } from './store/store';
 
-export default App = () => {
+export default () => {
     return (
         <Provider store={store}>
             <AppNavigator />
-            <StatusBar style='auto' />
+            <StatusBar style="auto" />
         </Provider>
     );
 };

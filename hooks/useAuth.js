@@ -7,14 +7,14 @@ import { auth } from '../firebase';
  * This hook serves as a listener to auth state changes provided by firebase.
  * It returns the authenticated user if he/she is present.
  */
-export default useAuth = () => {
+const useAuth = () => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
         // Mounting function
         const unsubscribeAuthStateChanged = onAuthStateChanged(
             auth,
-            authenticatedUser => {
+            (authenticatedUser) => {
                 authenticatedUser ? setUser(authenticatedUser) : setUser({});
             }
         );
@@ -27,3 +27,5 @@ export default useAuth = () => {
 
     return user;
 };
+
+export default useAuth;
