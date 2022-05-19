@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { MaterialIcons } from '@expo/vector-icons';
 
+import { auth } from '../firebase';
 import {
     MainScreen,
     Ex1Incorrect,
@@ -12,36 +16,42 @@ import {
     AuthScreen,
     LoginScreen,
     UsersScreen,
+    HomeScreen,
 } from '../screens';
-import useAuth from '../hooks/useAuth';
 
 const Stack = createNativeStackNavigator();
 const TodoStack = createNativeStackNavigator();
 
-const TodoNavigator = () => {
-    const { user } = useAuth();
+const AppNavigator = () => {
+    /**
+     * This hook serves as a listener to auth state changes provided by firebase.
+     * It returns the authenticated user if he/she is present.
+     */
+    const [user, setUser] = useState({});
+    const [isAuth, setIsAuth] = useState(false);
 
-    return (
-        <TodoStack.Navigator>
-            {user ? (
-                <TodoStack.Screen
-                    name="Login"
-                    options={{ headerTitle: 'Login' }}
-                    component={LoginScreen}
-                />
-            ) : (
-                <TodoStack.Screen
-                    name="Auth"
-                    options={{ headerTitle: 'TodoList' }}
-                    component={AuthScreen}
-                />
-            )}
-        </TodoStack.Navigator>
-    );
-};
+    useEffect(() => {
+        // Mounting function
+        const unsubscribeAuthStateChanged = onAuthStateChanged(
+            auth,
+            (authenticatedUser) => {
+                if (authenticatedUser) {
+                    setUser(authenticatedUser);
+                    setIsAuth(true);
+                } else {
+                    setUser({});
+                    setIsAuth(false);
+                }
+            }
+        );
 
-const AppNavigator = () => (
-    <NavigationContainer>
+        // Clean up mechanism
+        // React performs clean up when component unmounts. In our case,
+        // app stops running.
+        return unsubscribeAuthStateChanged;
+    }, []);
+
+    const MainNavigator = () => (
         <Stack.Navigator initialRouteName="Main">
             <Stack.Screen
                 name="Main"
@@ -74,9 +84,9 @@ const AppNavigator = () => (
                 component={CountRedux}
             />
             <Stack.Screen
-                name="Todo"
-                options={{ headerShown: false }}
-                component={TodoNavigator}
+                name="Auth"
+                options={{ headerTitle: 'TodoList' }}
+                component={AuthScreen}
             />
             <Stack.Screen
                 name="Users"
@@ -84,7 +94,39 @@ const AppNavigator = () => (
                 component={UsersScreen}
             />
         </Stack.Navigator>
-    </NavigationContainer>
-);
+    );
+
+    const logoutHandler = () => {
+        signOut(auth).then(() => {
+            setIsAuth(false);
+            setUser({});
+        });
+    };
+
+    const LogoutIcon = () => (
+        <TouchableOpacity onPress={logoutHandler}>
+            <MaterialIcons name="logout" size={28} color="#407BFF" />
+        </TouchableOpacity>
+    );
+
+    const TodoNavigator = () => (
+        <TodoStack.Navigator>
+            <TodoStack.Screen
+                name="Home"
+                options={{
+                    headerTitle: 'Home',
+                    headerRight: () => <LogoutIcon />,
+                }}
+                component={HomeScreen}
+            />
+        </TodoStack.Navigator>
+    );
+
+    return (
+        <NavigationContainer>
+            {isAuth ? <TodoNavigator /> : <MainNavigator />}
+        </NavigationContainer>
+    );
+};
 
 export default AppNavigator;

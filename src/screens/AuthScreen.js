@@ -25,10 +25,10 @@ const AuthScreen = ({ navigation }) => {
             .then(userCredentials => {
                 const user = userCredentials.user;
 
+                // To show the user object returned
                 console.log(user);
 
                 restoreForm();
-                navigation.navigate('Home');
             })
             .catch(error => {
                 const errorCode = error.code;
@@ -43,6 +43,7 @@ const AuthScreen = ({ navigation }) => {
             .then(userCredentials => {
                 const user = userCredentials.user;
 
+                // To show the user object returned
                 console.log(user);
 
                 restoreForm();
