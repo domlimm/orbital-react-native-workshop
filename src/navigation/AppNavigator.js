@@ -12,7 +12,7 @@ import {
     AuthScreen,
     LoginScreen
 } from '../screens';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 const Stack = createNativeStackNavigator();
 const TodoStack = createNativeStackNavigator();

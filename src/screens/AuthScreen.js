@@ -1,16 +1,58 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ToastAndroid } from 'react-native';
 import React, { useState } from 'react';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from 'firebase/auth';
 
 import { AuthTextInput, AuthPressable } from '../components';
+import { auth } from '../firebase';
 
 const AuthScreen = ({ navigation }) => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const loginHandler = () => {};
+    const signUpToast = () => {
+        ToastAndroid.show(
+            'Sign Up successfully completed!',
+            ToastAndroid.SHORT
+        );
+    };
 
-    const signUpHandler = () => {};
+    const loginHandler = () => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then(userCredentials => {
+                const user = userCredentials.user;
+
+                console.log(user);
+
+                navigation.navigate('Home');
+            })
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                console.error('[loginHandler]', errorCode, errorMessage);
+            });
+    };
+
+    const signUpHandler = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(userCredentials => {
+                const user = userCredentials.user;
+
+                console.log(user);
+
+                signUpToast();
+            })
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                console.error('[signUpHandler]', errorCode, errorMessage);
+            });
+    };
 
     return (
         <View style={styles.container}>
@@ -33,12 +75,12 @@ const AuthScreen = ({ navigation }) => {
                 secureTextEntry
             />
             <AuthPressable
-                onPressHandler={() => console.log('// todo')}
+                onPressHandler={isLogin ? loginHandler : signUpHandler}
                 title={'Proceed'}
             />
             <AuthPressable
                 onPressHandler={() => setIsLogin(!isLogin)}
-                title={isLogin ? 'Sign Up' : 'Login'}
+                title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
             />
         </View>
     );
