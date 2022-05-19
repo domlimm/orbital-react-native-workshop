@@ -1,23 +1,41 @@
-import { StyleSheet, View, Pressable, Text, ToastAndroid } from 'react-native';
-import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import React, { useState } from 'react';
+
+import { AuthTextInput, AuthPressable } from '../components/';
 
 const HomeScreen = ({ navigation }) => {
+    const [isLogin, setIsLogin] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <View style={styles.container}>
-            <Pressable
-                style={styles.button}
-                onPress={() => navigation.navigate('Login')}
-                android_ripple={{ color: '#FFF' }}
-            >
-                <Text style={styles.text}>Login</Text>
-            </Pressable>
-            <Pressable
-                style={styles.button}
-                onPress={() => navigation.navigate('SignUp')}
-                android_ripple={{ color: '#FFF' }}
-            >
-                <Text style={styles.text}>Sign Up</Text>
-            </Pressable>
+            <Text style={[styles.welcomeText, styles.boldText]}>
+                Welcome back to Todo List!
+            </Text>
+            <Text style={[styles.authText, styles.boldText]}>
+                {isLogin ? 'You are logging in!' : 'You are signing up!'}
+            </Text>
+            <AuthTextInput
+                value={email}
+                placeholder='Your Email'
+                textHandler={setEmail}
+                keyboardType='email-address'
+            />
+            <AuthTextInput
+                value={password}
+                placeholder='Your Password'
+                textHandler={setPassword}
+                secureTextEntry
+            />
+            <AuthPressable
+                onPressHandler={() => console.log('// todo')}
+                title={'Proceed'}
+            />
+            <AuthPressable
+                onPressHandler={() => setIsLogin(!isLogin)}
+                title={isLogin ? 'Sign Up' : 'Login'}
+            />
         </View>
     );
 };
@@ -31,15 +49,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    button: {
-        backgroundColor: '#407BFF',
-        marginVertical: 10,
-        paddingVertical: 10,
-        width: '80%',
-        alignItems: 'center',
-        borderRadius: 4
+    boldText: {
+        fontWeight: 'bold'
     },
-    text: {
-        color: 'white'
-    }
+    welcomeText: {},
+    authText: {}
 });
