@@ -9,33 +9,35 @@ import {
     Ex2Solution,
     Ex1SolutionRedux,
     CountRedux,
-    HomeScreen,
-    LoginScreen,
-    SignUpScreen
+    AuthScreen,
+    LoginScreen
 } from '../screens';
+import useAuth from '../hooks/useAuth';
 
 const Stack = createNativeStackNavigator();
 const TodoStack = createNativeStackNavigator();
 
-const TodoNavigator = () => (
-    <TodoStack.Navigator>
-        <TodoStack.Screen
-            name='Home'
-            options={{ headerTitle: 'TodoList' }}
-            component={HomeScreen}
-        />
-        <TodoStack.Screen
-            name='Login'
-            options={{ headerTitle: 'Login' }}
-            component={LoginScreen}
-        />
-        <TodoStack.Screen
-            name='SignUp'
-            options={{ headerTitle: 'Sign Up' }}
-            component={SignUpScreen}
-        />
-    </TodoStack.Navigator>
-);
+const TodoNavigator = () => {
+    const { user } = useAuth();
+
+    return (
+        <TodoStack.Navigator>
+            {user ? (
+                <TodoStack.Screen
+                    name='Login'
+                    options={{ headerTitle: 'Login' }}
+                    component={LoginScreen}
+                />
+            ) : (
+                <TodoStack.Screen
+                    name='Auth'
+                    options={{ headerTitle: 'TodoList' }}
+                    component={AuthScreen}
+                />
+            )}
+        </TodoStack.Navigator>
+    );
+};
 
 const AppNavigator = () => (
     <NavigationContainer>

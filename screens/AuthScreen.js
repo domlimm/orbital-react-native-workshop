@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native';
 import React, { useState } from 'react';
 
-import { AuthTextInput, AuthPressable } from '../components/';
+import { AuthTextInput, AuthPressable } from '../components';
 
-const HomeScreen = ({ navigation }) => {
+const AuthScreen = ({ navigation }) => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -44,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
     );
 };
 
-export default HomeScreen;
+export default AuthScreen;
 
 const styles = StyleSheet.create({
     container: {
