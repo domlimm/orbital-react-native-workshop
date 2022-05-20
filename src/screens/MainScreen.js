@@ -46,6 +46,13 @@ const MainScreen = ({ navigation }) => {
             >
                 <Text style={styles.text}>TodoList</Text>
             </Pressable>
+            <Pressable
+                style={styles.button}
+                onPress={() => navigation.navigate('Users')}
+                android_ripple={{ color: '#FFF' }}
+            >
+                <Text style={styles.text}>UsersScreen</Text>
+            </Pressable>
         </View>
     );
 };
@@ -57,7 +64,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBECF0',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     button: {
         backgroundColor: '#407BFF',
@@ -65,9 +72,9 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         width: '80%',
         alignItems: 'center',
-        borderRadius: 4
+        borderRadius: 4,
     },
     text: {
-        color: 'white'
-    }
+        color: 'white',
+    },
 });

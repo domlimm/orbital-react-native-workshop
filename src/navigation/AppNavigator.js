@@ -14,7 +14,9 @@ import {
     Ex1SolutionRedux,
     CountRedux,
     AuthScreen,
-    HomeScreen
+    LoginScreen,
+    UsersScreen,
+    HomeScreen,
 } from '../screens';
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +34,7 @@ const AppNavigator = () => {
         // Mounting function
         const unsubscribeAuthStateChanged = onAuthStateChanged(
             auth,
-            authenticatedUser => {
+            (authenticatedUser) => {
                 if (authenticatedUser) {
                     setUser(authenticatedUser);
                     setIsAuth(true);
@@ -86,6 +88,11 @@ const AppNavigator = () => {
                 options={{ headerTitle: 'Todo List' }}
                 component={AuthScreen}
             />
+            <Stack.Screen
+                name='Users'
+                options={{ headerShown: false }}
+                component={UsersScreen}
+            />
         </Stack.Navigator>
     );
 
@@ -98,7 +105,7 @@ const AppNavigator = () => {
 
     const LogoutIcon = () => (
         <TouchableOpacity onPress={logoutHandler}>
-            <MaterialIcons name='logout' size={28} color='#407BFF' />
+            <MaterialIcons name="logout" size={28} color="#407BFF" />
         </TouchableOpacity>
     );
 
@@ -108,7 +115,7 @@ const AppNavigator = () => {
                 name='Home'
                 options={{
                     headerTitle: 'Home',
-                    headerRight: () => <LogoutIcon />
+                    headerRight: () => <LogoutIcon />,
                 }}
                 component={HomeScreen}
             />
