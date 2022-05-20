@@ -106,19 +106,20 @@ const HomeScreen = () => {
             <SafeAreaView style={styles.container}>
                 <View style={styles.contentContainer}>
                     <Text style={styles.headerText}>Your Tasks 👋🏻</Text>
-                    <FlatList
-                        data={taskList}
-                        renderItem={({ item, index }) => (
-                            <Task
-                                data={item}
-                                key={index}
-                                onDelete={onDeleteHandler}
-                            />
-                        )}
-                        style={styles.listContainer}
-                        showsVerticalScrollIndicator={false}
-                        ListFooterComponent={ListFooterComponent}
-                    />
+                    <View style={styles.listContainer}>
+                        <FlatList
+                            data={taskList}
+                            renderItem={({ item, index }) => (
+                                <Task
+                                    data={item}
+                                    key={index}
+                                    onDelete={onDeleteHandler}
+                                />
+                            )}
+                            style={styles.list}
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </View>
                 </View>
                 <View style={styles.formContainer}>
                     <TextInput
@@ -149,9 +150,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAF9F6',
     },
     contentContainer: {
+        flex: 1,
         backgroundColor: '#FAF9F6',
     },
     listContainer: {
+        flex: 1,
+        paddingBottom: 60,
+    },
+    list: {
         overflow: 'scroll',
     },
     headerText: {
