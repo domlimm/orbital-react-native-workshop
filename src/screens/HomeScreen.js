@@ -8,7 +8,6 @@ import {
     Pressable,
     Dimensions,
     FlatList,
-    ScrollView,
     ToastAndroid,
     Keyboard,
 } from 'react-native';
@@ -28,7 +27,7 @@ import { Task } from '../components';
 const INPUT_PLACEHOLDER = 'Enter your task and hit Add';
 const THEME = '#407BFF';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
     const [task, setTask] = useState('');
@@ -96,8 +95,6 @@ const HomeScreen = () => {
         Keyboard.dismiss();
     };
 
-    const ListFooterComponent = (<View style={{ height: 128 }}></View>);
-
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
@@ -155,7 +152,7 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         flex: 1,
-        paddingBottom: 60,
+        paddingBottom: 70, // Fix: Temporary workaround
     },
     list: {
         overflow: 'scroll',
