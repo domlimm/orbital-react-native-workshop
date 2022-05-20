@@ -28,6 +28,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// https://firebase.google.com/docs/web/setup
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
