@@ -9,22 +9,49 @@ import {
     Dimensions,
     FlatList,
     ScrollView,
+    ToastAndroid,
+    Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
 
+import { db } from '../firebase';
 import { Task } from '../components';
 import { data } from '../constants/dummy-data';
 
 const INPUT_PLACEHOLDER = 'Enter your task and hit the Add';
 const THEME = '#407BFF';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
     const [task, setTask] = useState('');
 
-    const onSubmitHandler = () => {
-        console.log('Adding task...');
+    const showRes = (text) => {
+        ToastAndroid.show(text, ToastAndroid.SHORT);
+    };
+
+    // https://firebase.google.com/docs/firestore/manage-data/add-data#web-version-9
+    // https://firebase.google.com/docs/firestore/manage-data/add-data#web-version-9_7
+    const onSubmitHandler = async () => {
+        try {
+            const taskRef = await addDoc(collection(db, 'tasks'), {
+                desc: task,
+                completed: false,
+            });
+
+            console.log('onSubmitHandler success', taskRef.id);
+            showRes('Successfully added task!');
+            clearForm();
+        } catch (err) {
+            console.log('onSubmitHandler failure', err);
+            showRes('Failed to add task!');
+        }
+    };
+
+    const clearForm = () => {
+        setTask('');
+        Keyboard.dismiss();
     };
 
     return (
@@ -87,7 +114,6 @@ const styles = StyleSheet.create({
         color: THEME,
     },
     listContainer: {
-        height: 0.72 * height,
         flexGrow: 0,
     },
     formContainer: {
