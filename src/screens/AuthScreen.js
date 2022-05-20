@@ -1,4 +1,12 @@
-import { StyleSheet, View, Text, ToastAndroid, Keyboard } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    ToastAndroid,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform
+} from 'react-native';
 import React, { useState } from 'react';
 import {
     createUserWithEmailAndPassword,
@@ -8,7 +16,7 @@ import {
 import { AuthTextInput, AuthPressable } from '../components';
 import { auth } from '../firebase';
 
-const AuthScreen = ({ navigation }) => {
+const AuthScreen = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,8 +28,20 @@ const AuthScreen = ({ navigation }) => {
         );
     };
 
+    const missingFieldsToast = () => {
+        ToastAndroid.show(
+            'Missing fields, please try again!',
+            ToastAndroid.SHORT
+        );
+    };
+
     const loginHandler = () => {
-        signInWithEmailAndPassword(auth, email, password)
+        if (email.length === 0 || password.length === 0) {
+            missingFieldsToast();
+            return;
+        }
+
+        return signInWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
 
@@ -39,7 +59,12 @@ const AuthScreen = ({ navigation }) => {
     };
 
     const signUpHandler = () => {
-        createUserWithEmailAndPassword(auth, email, password)
+        if (email.length === 0 || password.length === 0) {
+            missingFieldsToast();
+            return;
+        }
+
+        return createUserWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
 
@@ -64,34 +89,39 @@ const AuthScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={[styles.welcomeText, styles.boldText]}>
-                Welcome back to Todo List!
-            </Text>
-            <Text style={[styles.authText, styles.boldText]}>
-                {isLogin ? 'You are logging in!' : 'You are signing up!'}
-            </Text>
-            <AuthTextInput
-                value={email}
-                placeholder='Your Email'
-                textHandler={setEmail}
-                keyboardType='email-address'
-            />
-            <AuthTextInput
-                value={password}
-                placeholder='Your Password'
-                textHandler={setPassword}
-                secureTextEntry
-            />
-            <AuthPressable
-                onPressHandler={isLogin ? loginHandler : signUpHandler}
-                title={'Proceed'}
-            />
-            <AuthPressable
-                onPressHandler={() => setIsLogin(!isLogin)}
-                title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
-            />
-        </View>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
+        >
+            <View style={styles.container}>
+                <Text style={[styles.welcomeText, styles.boldText]}>
+                    {`Welcome back to your\nTodo List!`}
+                </Text>
+                <Text style={[styles.authText, styles.boldText]}>
+                    {isLogin ? 'You are logging in!' : 'You are signing up!'}
+                </Text>
+                <AuthTextInput
+                    value={email}
+                    placeholder='Your Email'
+                    textHandler={setEmail}
+                    keyboardType='email-address'
+                />
+                <AuthTextInput
+                    value={password}
+                    placeholder='Your Password'
+                    textHandler={setPassword}
+                    secureTextEntry
+                />
+                <AuthPressable
+                    onPressHandler={isLogin ? loginHandler : signUpHandler}
+                    title={'Proceed'}
+                />
+                <AuthPressable
+                    onPressHandler={() => setIsLogin(!isLogin)}
+                    title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
+                />
+            </View>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -105,8 +135,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     boldText: {
-        fontWeight: 'bold'
+        fontWeight: '400'
     },
-    welcomeText: {},
-    authText: {}
+    welcomeText: {
+        fontSize: 32,
+        textAlign: 'center',
+        marginBottom: 20
+    },
+    authText: {
+        fontSize: 20,
+        marginBottom: 10
+    }
 });
