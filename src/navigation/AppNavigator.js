@@ -25,9 +25,7 @@ const TodoStack = createNativeStackNavigator();
 const AppNavigator = () => {
     /**
      * This hook serves as a listener to auth state changes provided by firebase.
-     * It returns the authenticated user if he/she is present.
      */
-    const [user, setUser] = useState({});
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
@@ -36,10 +34,8 @@ const AppNavigator = () => {
             auth,
             (authenticatedUser) => {
                 if (authenticatedUser) {
-                    setUser(authenticatedUser);
                     setIsAuth(true);
                 } else {
-                    setUser({});
                     setIsAuth(false);
                 }
             }
@@ -52,44 +48,44 @@ const AppNavigator = () => {
     }, []);
 
     const MainNavigator = () => (
-        <Stack.Navigator initialRouteName='Main'>
+        <Stack.Navigator initialRouteName="Main">
             <Stack.Screen
-                name='Main'
+                name="Main"
                 options={{ title: 'Orbital 22 React Native Workshop' }}
                 component={MainScreen}
             />
             <Stack.Screen
-                name='Ex1Incorrect'
+                name="Ex1Incorrect"
                 options={{ title: 'Exercise 1 (Incorrect)' }}
                 component={Ex1Incorrect}
             />
             <Stack.Screen
-                name='Ex1Solution'
+                name="Ex1Solution"
                 options={{ title: 'Exercise 1 (Solution)' }}
                 component={Ex1Solution}
             />
             <Stack.Screen
-                name='Ex1SolutionRedux'
+                name="Ex1SolutionRedux"
                 options={{ title: 'Exercise 1 (Solution Redux)' }}
                 component={Ex1SolutionRedux}
             />
             <Stack.Screen
-                name='Ex2Solution'
+                name="Ex2Solution"
                 options={{ title: 'Exercise 2 (Solution)' }}
                 component={Ex2Solution}
             />
             <Stack.Screen
-                name='CountRedux'
+                name="CountRedux"
                 options={{ title: 'Count with specific input' }}
                 component={CountRedux}
             />
             <Stack.Screen
-                name='Auth'
+                name="Auth"
                 options={{ headerTitle: 'Todo List' }}
                 component={AuthScreen}
             />
             <Stack.Screen
-                name='Users'
+                name="Users"
                 options={{ headerShown: false }}
                 component={UsersScreen}
             />
@@ -112,7 +108,7 @@ const AppNavigator = () => {
     const TodoNavigator = () => (
         <TodoStack.Navigator>
             <TodoStack.Screen
-                name='Home'
+                name="Home"
                 options={{
                     headerTitle: 'Home',
                     headerRight: () => <LogoutIcon />,
