@@ -6,14 +6,18 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Pressable,
-    Dimensions
+    Dimensions,
+    FlatList,
+    ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
+
+import { Task } from '../components';
 
 const INPUT_PLACEHOLDER = 'Enter your task and hit the Add';
 const THEME = '#407BFF';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const HomeScreen = () => {
     const [task, setTask] = useState('');
@@ -22,33 +26,50 @@ const HomeScreen = () => {
         console.log('Adding task...');
     };
 
+    const data = [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    ];
+
     return (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === 'ios' ? 'padding' : null}
-            >
-                <View style={styles.container}>
-                    <Text style={styles.headerText}>Your Tasks 👋🏻</Text>
-                    <View style={styles.formContainer}>
-                        <TextInput
-                            onChangeText={setTask}
-                            value={task}
-                            selectionColor={THEME}
-                            placeholder={INPUT_PLACEHOLDER}
-                            style={styles.taskInput}
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
+        >
+            <SafeAreaView style={styles.container}>
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                    <View style={styles.container}>
+                        <Text style={styles.headerText}>Your Tasks 👋🏻</Text>
+                        <FlatList
+                            data={data}
+                            renderItem={({ item, index }) => (
+                                <Task desc={item} key={index} />
+                            )}
+                            style={styles.listContainer}
+                            showsVerticalScrollIndicator={false}
                         />
-                        <Pressable
-                            onPress={onSubmitHandler}
-                            android_ripple={{ color: 'white' }}
-                            style={styles.button}
-                        >
-                            <Text style={styles.buttonText}>Add</Text>
-                        </Pressable>
+                        <View style={styles.formContainer}>
+                            <TextInput
+                                onChangeText={setTask}
+                                value={task}
+                                selectionColor={THEME}
+                                placeholder={INPUT_PLACEHOLDER}
+                                style={styles.taskInput}
+                            />
+                            <Pressable
+                                onPress={onSubmitHandler}
+                                android_ripple={{ color: 'white' }}
+                                style={styles.button}
+                            >
+                                <Text style={styles.buttonText}>Add</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+                </ScrollView>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -57,22 +78,28 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FAF9F6'
+        backgroundColor: '#FAF9F6',
+    },
+    scrollContainer: {
+        flex: 1,
+        flexGrow: 1,
     },
     headerText: {
         fontWeight: 'bold',
         fontSize: 32,
         marginLeft: 14,
         marginTop: 14,
-        marginBottom: 20,
-        color: THEME
+        marginBottom: 10,
+        color: THEME,
+    },
+    listContainer: {
+        height: 0.72 * height,
+        flexGrow: 0,
     },
     formContainer: {
-        position: 'absolute',
-        bottom: 0,
         flexDirection: 'row',
         marginHorizontal: 14,
-        marginVertical: 20
+        marginVertical: 8,
     },
     taskInput: {
         width: width * 0.7,
@@ -81,7 +108,7 @@ const styles = StyleSheet.create({
         borderColor: '#E0D4B0',
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginRight: 8
+        marginRight: 8,
     },
     button: {
         width: width * 0.22,
@@ -90,9 +117,9 @@ const styles = StyleSheet.create({
         backgroundColor: THEME,
         borderRadius: 5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonText: {
-        color: 'white'
-    }
+        color: 'white',
+    },
 });
