@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+// Todo
+import {} from 'react-redux';
 
 import { incrementByInput, decrementByInput } from '../store/count';
 
 const CountRedux = () => {
-    const dispatch = useDispatch();
-    const count = useSelector(state => state.count.count);
-
-    const [input, setInput] = useState(0);
-
-    const increment = () => {
-        dispatch(incrementByInput({ input: parseInt(input) }));
-    };
-
-    const decrement = () => {
-        dispatch(decrementByInput({ input: parseInt(input) }));
-    };
+    // Todo
 
     return (
         <View style={styles.container}>
@@ -25,17 +15,17 @@ const CountRedux = () => {
                 value={input.toString()}
                 onChangeText={setInput}
                 style={styles.textInput}
-                keyboardType='decimal-pad'
+                keyboardType="decimal-pad"
             />
             <View style={styles.buttonContainer}>
                 <View style={styles.subButtonContainer}>
-                    <Button title='Add' onPress={increment} />
+                    <Button title="Add" onPress={increment} />
                 </View>
                 <View style={styles.subButtonContainer}>
-                    <Button title='Sub' onPress={decrement} />
+                    <Button title="Sub" onPress={decrement} />
                 </View>
                 <View style={styles.subButtonContainer}>
-                    <Button title='Reset' onPress={() => setInput('')} />
+                    <Button title="Reset" onPress={() => setInput('')} />
                 </View>
             </View>
         </View>
@@ -49,18 +39,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBECF0',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonContainer: {
         width: '60%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     subButtonContainer: {
-        width: '30%'
+        width: '30%',
     },
     text: {
-        marginVertical: 10
+        marginVertical: 10,
     },
     textInput: {
         alignSelf: 'center',
@@ -70,6 +60,6 @@ const styles = StyleSheet.create({
         width: '60%',
         paddingHorizontal: 8,
         textAlign: 'center',
-        marginBottom: 10
-    }
+        marginBottom: 10,
+    },
 });

@@ -26,25 +26,10 @@ const AppNavigator = () => {
     /**
      * This hook serves as a listener to auth state changes provided by firebase.
      */
-    const [isAuth, setIsAuth] = useState(false);
+    // Todo: isAuth hook
 
     useEffect(() => {
-        // Mounting function
-        const unsubscribeAuthStateChanged = onAuthStateChanged(
-            auth,
-            (authenticatedUser) => {
-                if (authenticatedUser) {
-                    setIsAuth(true);
-                } else {
-                    setIsAuth(false);
-                }
-            }
-        );
-
-        // Clean up mechanism
-        // React performs clean up when component unmounts. In our case,
-        // app stops running.
-        return unsubscribeAuthStateChanged;
+        // Todo: Authentication
     }, []);
 
     const MainNavigator = () => (
@@ -93,10 +78,7 @@ const AppNavigator = () => {
     );
 
     const logoutHandler = () => {
-        signOut(auth).then(() => {
-            setIsAuth(false);
-            setUser({});
-        });
+        // Todo: Authentication
     };
 
     const LogoutIcon = () => (
@@ -119,9 +101,7 @@ const AppNavigator = () => {
     );
 
     return (
-        <NavigationContainer>
-            {isAuth ? <TodoNavigator /> : <MainNavigator />}
-        </NavigationContainer>
+        <NavigationContainer>{/* Todo: Authentication */}</NavigationContainer>
     );
 };
 

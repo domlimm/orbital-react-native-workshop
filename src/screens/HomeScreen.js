@@ -12,14 +12,7 @@ import {
     Keyboard,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import {
-    addDoc,
-    onSnapshot,
-    query,
-    collection,
-    doc,
-    deleteDoc,
-} from 'firebase/firestore';
+import {} from 'firebase/firestore';
 
 import { db } from '../firebase';
 import { Task } from '../components';
@@ -36,20 +29,8 @@ const HomeScreen = () => {
     useEffect(() => {
         // Expensive operation. Consider your app's design on when to invoke this.
         // Could use Redux to help on first application load.
-        const taskQuery = query(collection(db, 'tasks'));
-
-        const unsubscribe = onSnapshot(taskQuery, (snapshot) => {
-            const tasks = [];
-
-            snapshot.forEach((doc) => {
-                tasks.push({ id: doc.id, ...doc.data() });
-            });
-
-            setTaskList([...tasks]);
-        });
-
-        return unsubscribe;
-    }, [onSubmitHandler]);
+        // Todo: listen to firestore changes
+    }, []);
 
     const showRes = (text) => {
         ToastAndroid.show(text, ToastAndroid.SHORT);
@@ -57,37 +38,17 @@ const HomeScreen = () => {
 
     // https://firebase.google.com/docs/firestore/manage-data/add-data#web-version-9
     // https://firebase.google.com/docs/firestore/manage-data/add-data#web-version-9_7
-    const onSubmitHandler = async () => {
+    const onSubmitHandler = () => {
         if (task.length === 0) {
             showRes('Task description cannot be empty!');
             return;
         }
 
-        try {
-            const taskRef = await addDoc(collection(db, 'tasks'), {
-                desc: task,
-                completed: false,
-            });
-
-            console.log('onSubmitHandler success', taskRef.id);
-            showRes('Successfully added task!');
-            clearForm();
-        } catch (err) {
-            console.log('onSubmitHandler failure', err);
-            showRes('Failed to add task!');
-        }
+        // Todo
     };
 
-    const onDeleteHandler = async (id) => {
-        try {
-            await deleteDoc(doc(db, 'tasks', id));
-
-            console.log('onDeleteHandler success', id);
-            showRes('Successfully deleted task!');
-        } catch (err) {
-            console.log('onDeleteHandler failure', err);
-            showRes('Failed to delete task!');
-        }
+    const onDeleteHandler = () => {
+        // Todo
     };
 
     const clearForm = () => {
