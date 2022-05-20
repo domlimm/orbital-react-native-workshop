@@ -12,20 +12,38 @@ import {
     ToastAndroid,
     Keyboard,
 } from 'react-native';
-import React, { useState } from 'react';
-import { addDoc, collection } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { addDoc, onSnapshot, query, collection } from 'firebase/firestore';
 
 import { db } from '../firebase';
 import { Task } from '../components';
-import { data } from '../constants/dummy-data';
 
-const INPUT_PLACEHOLDER = 'Enter your task and hit the Add';
+const INPUT_PLACEHOLDER = 'Enter your task and hit Add';
 const THEME = '#407BFF';
 
 const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
     const [task, setTask] = useState('');
+    const [taskList, setTaskList] = useState([]);
+
+    useEffect(() => {
+        // Expensive operation. Consider your app's design on when to invoke this.
+        // Could use Redux to help on first application load.
+        const taskQuery = query(collection(db, 'tasks'));
+
+        const unsubscribe = onSnapshot(taskQuery, (snapshot) => {
+            const tasks = [];
+
+            snapshot.forEach((doc) => {
+                tasks.push({ id: doc.id, ...doc.data() });
+            });
+
+            setTaskList([...tasks]);
+        });
+
+        return unsubscribe;
+    }, [onSubmitHandler]);
 
     const showRes = (text) => {
         ToastAndroid.show(text, ToastAndroid.SHORT);
@@ -34,6 +52,11 @@ const HomeScreen = () => {
     // https://firebase.google.com/docs/firestore/manage-data/add-data#web-version-9
     // https://firebase.google.com/docs/firestore/manage-data/add-data#web-version-9_7
     const onSubmitHandler = async () => {
+        if (task.length === 0) {
+            showRes('Task description cannot be empty!');
+            return;
+        }
+
         try {
             const taskRef = await addDoc(collection(db, 'tasks'), {
                 desc: task,
@@ -61,32 +84,32 @@ const HomeScreen = () => {
         >
             <SafeAreaView style={styles.container}>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
-                    <View style={styles.container}>
+                    <View style={styles.contentContainer}>
                         <Text style={styles.headerText}>Your Tasks 👋🏻</Text>
                         <FlatList
-                            data={data}
+                            data={taskList}
                             renderItem={({ item, index }) => (
-                                <Task desc={item} key={index} />
+                                <Task desc={item.desc} key={index} />
                             )}
                             style={styles.listContainer}
                             showsVerticalScrollIndicator={false}
                         />
-                        <View style={styles.formContainer}>
-                            <TextInput
-                                onChangeText={setTask}
-                                value={task}
-                                selectionColor={THEME}
-                                placeholder={INPUT_PLACEHOLDER}
-                                style={styles.taskInput}
-                            />
-                            <Pressable
-                                onPress={onSubmitHandler}
-                                android_ripple={{ color: 'white' }}
-                                style={styles.button}
-                            >
-                                <Text style={styles.buttonText}>Add</Text>
-                            </Pressable>
-                        </View>
+                    </View>
+                    <View style={styles.formContainer}>
+                        <TextInput
+                            onChangeText={setTask}
+                            value={task}
+                            selectionColor={THEME}
+                            placeholder={INPUT_PLACEHOLDER}
+                            style={styles.taskInput}
+                        />
+                        <Pressable
+                            onPress={onSubmitHandler}
+                            android_ripple={{ color: 'white' }}
+                            style={styles.button}
+                        >
+                            <Text style={styles.buttonText}>Add</Text>
+                        </Pressable>
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -99,6 +122,9 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#FAF9F6',
+    },
+    contentContainer: {
         backgroundColor: '#FAF9F6',
     },
     scrollContainer: {
@@ -117,6 +143,8 @@ const styles = StyleSheet.create({
         flexGrow: 0,
     },
     formContainer: {
+        position: 'absolute',
+        bottom: 0,
         flexDirection: 'row',
         marginHorizontal: 14,
         marginVertical: 8,
