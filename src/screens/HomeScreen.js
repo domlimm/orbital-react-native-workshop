@@ -96,45 +96,46 @@ const HomeScreen = () => {
         Keyboard.dismiss();
     };
 
+    const ListFooterComponent = (<View style={{ height: 128 }}></View>);
+
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : null}
         >
             <SafeAreaView style={styles.container}>
-                <ScrollView contentContainerStyle={styles.scrollContainer}>
-                    <View style={styles.contentContainer}>
-                        <Text style={styles.headerText}>Your Tasks 👋🏻</Text>
-                        <FlatList
-                            data={taskList}
-                            renderItem={({ item, index }) => (
-                                <Task
-                                    data={item}
-                                    key={index}
-                                    onDelete={onDeleteHandler}
-                                />
-                            )}
-                            style={styles.listContainer}
-                            showsVerticalScrollIndicator={false}
-                        />
-                    </View>
-                    <View style={styles.formContainer}>
-                        <TextInput
-                            onChangeText={setTask}
-                            value={task}
-                            selectionColor={THEME}
-                            placeholder={INPUT_PLACEHOLDER}
-                            style={styles.taskInput}
-                        />
-                        <Pressable
-                            onPress={onSubmitHandler}
-                            android_ripple={{ color: 'white' }}
-                            style={styles.button}
-                        >
-                            <Text style={styles.buttonText}>Add</Text>
-                        </Pressable>
-                    </View>
-                </ScrollView>
+                <View style={styles.contentContainer}>
+                    <Text style={styles.headerText}>Your Tasks 👋🏻</Text>
+                    <FlatList
+                        data={taskList}
+                        renderItem={({ item, index }) => (
+                            <Task
+                                data={item}
+                                key={index}
+                                onDelete={onDeleteHandler}
+                            />
+                        )}
+                        style={styles.listContainer}
+                        showsVerticalScrollIndicator={false}
+                        ListFooterComponent={ListFooterComponent}
+                    />
+                </View>
+                <View style={styles.formContainer}>
+                    <TextInput
+                        onChangeText={setTask}
+                        value={task}
+                        selectionColor={THEME}
+                        placeholder={INPUT_PLACEHOLDER}
+                        style={styles.taskInput}
+                    />
+                    <Pressable
+                        onPress={onSubmitHandler}
+                        android_ripple={{ color: 'white' }}
+                        style={styles.button}
+                    >
+                        <Text style={styles.buttonText}>Add</Text>
+                    </Pressable>
+                </View>
             </SafeAreaView>
         </KeyboardAvoidingView>
     );
@@ -150,12 +151,8 @@ const styles = StyleSheet.create({
     contentContainer: {
         backgroundColor: '#FAF9F6',
     },
-    scrollContainer: {
-        flex: 1,
-        flexGrow: 1,
-    },
     listContainer: {
-        flexGrow: 0,
+        overflow: 'scroll',
     },
     headerText: {
         fontWeight: 'bold',
@@ -169,8 +166,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         flexDirection: 'row',
-        marginHorizontal: 14,
-        marginVertical: 8,
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        backgroundColor: '#FAF9F6',
     },
     taskInput: {
         width: width * 0.7,
