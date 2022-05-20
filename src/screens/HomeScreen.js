@@ -13,7 +13,14 @@ import {
     Keyboard,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { addDoc, onSnapshot, query, collection } from 'firebase/firestore';
+import {
+    addDoc,
+    onSnapshot,
+    query,
+    collection,
+    doc,
+    deleteDoc,
+} from 'firebase/firestore';
 
 import { db } from '../firebase';
 import { Task } from '../components';
@@ -72,6 +79,18 @@ const HomeScreen = () => {
         }
     };
 
+    const onDeleteHandler = async (id) => {
+        try {
+            await deleteDoc(doc(db, 'tasks', id));
+
+            console.log('onDeleteHandler success', id);
+            showRes('Successfully deleted task!');
+        } catch (err) {
+            console.log('onDeleteHandler failure', err);
+            showRes('Failed to delete task!');
+        }
+    };
+
     const clearForm = () => {
         setTask('');
         Keyboard.dismiss();
@@ -89,7 +108,11 @@ const HomeScreen = () => {
                         <FlatList
                             data={taskList}
                             renderItem={({ item, index }) => (
-                                <Task desc={item.desc} key={index} />
+                                <Task
+                                    data={item}
+                                    key={index}
+                                    onDelete={onDeleteHandler}
+                                />
                             )}
                             style={styles.listContainer}
                             showsVerticalScrollIndicator={false}

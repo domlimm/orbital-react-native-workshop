@@ -3,17 +3,17 @@ import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const Task = (props) => {
-    const { desc } = props;
+    const { data, onDelete } = props;
 
     const DeleteIcon = () => (
-        <TouchableOpacity onPress={() => console.log('delete')}>
+        <TouchableOpacity onPress={() => onDelete(data.id)}>
             <MaterialIcons name="delete" size={28} color="#407BFF" />
         </TouchableOpacity>
     );
 
     return (
         <View style={[styles.container, styles.containerShadow]}>
-            <Text style={styles.taskText}>{desc}</Text>
+            <Text style={styles.taskText}>{data.desc}</Text>
             <DeleteIcon />
         </View>
     );

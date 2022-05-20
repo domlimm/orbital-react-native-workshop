@@ -29,6 +29,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // https://firebase.google.com/docs/web/setup
+// https://docs.expo.dev/guides/using-firebase/
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
