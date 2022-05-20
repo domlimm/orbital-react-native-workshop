@@ -21,7 +21,7 @@ import { Task } from '../components';
 const INPUT_PLACEHOLDER = 'Enter your task and hit Add';
 const THEME = '#407BFF';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const HomeScreen = () => {
     const [task, setTask] = useState('');
@@ -131,6 +131,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
     },
+    listContainer: {
+        flexGrow: 0,
+    },
     headerText: {
         fontWeight: 'bold',
         fontSize: 32,
@@ -138,9 +141,6 @@ const styles = StyleSheet.create({
         marginTop: 14,
         marginBottom: 10,
         color: THEME,
-    },
-    listContainer: {
-        flexGrow: 0,
     },
     formContainer: {
         position: 'absolute',
