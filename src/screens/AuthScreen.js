@@ -28,7 +28,19 @@ const AuthScreen = () => {
         );
     };
 
+    const missingFieldsToast = () => {
+        ToastAndroid.show(
+            'Missing fields, please try again!',
+            ToastAndroid.SHORT
+        );
+    };
+
     const loginHandler = () => {
+        if (email.length === 0 || password.length === 0) {
+            missingFieldsToast();
+            return;
+        }
+
         return signInWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
@@ -47,6 +59,11 @@ const AuthScreen = () => {
     };
 
     const signUpHandler = () => {
+        if (email.length === 0 || password.length === 0) {
+            missingFieldsToast();
+            return;
+        }
+
         return createUserWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;

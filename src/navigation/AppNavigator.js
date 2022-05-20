@@ -83,7 +83,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name='Auth'
-                options={{ headerTitle: 'TodoList' }}
+                options={{ headerTitle: 'Todo List' }}
                 component={AuthScreen}
             />
         </Stack.Navigator>
