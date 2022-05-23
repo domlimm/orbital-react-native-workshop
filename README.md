@@ -18,4 +18,6 @@ Once that is done, run `npm/yarn install` to install the dependencies in this ap
 
 After, run `npm/yarn/expo start` to start the application.
 
-> Work in progress
+## Firebase Setup
+
+Replace your Firebase's API configuration into the `.env` file.
