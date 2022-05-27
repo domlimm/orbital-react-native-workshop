@@ -95,7 +95,6 @@ const AppNavigator = () => {
     const logoutHandler = () => {
         signOut(auth).then(() => {
             setIsAuth(false);
-            setUser({});
         });
     };
 
