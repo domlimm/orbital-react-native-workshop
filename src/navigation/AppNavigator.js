@@ -14,7 +14,6 @@ import {
     Ex1SolutionRedux,
     CountRedux,
     AuthScreen,
-    LoginScreen,
     UsersScreen,
     HomeScreen,
 } from '../screens';
@@ -44,7 +43,7 @@ const AppNavigator = () => {
         // Clean up mechanism
         // React performs clean up when component unmounts. In our case,
         // app stops running.
-        return unsubscribeAuthStateChanged;
+        return () => unsubscribeAuthStateChanged();
     }, []);
 
     const MainNavigator = () => (

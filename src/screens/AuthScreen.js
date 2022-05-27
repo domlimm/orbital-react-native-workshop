@@ -5,12 +5,12 @@ import {
     ToastAndroid,
     Keyboard,
     KeyboardAvoidingView,
-    Platform
+    Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import {
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
 } from 'firebase/auth';
 
 import { AuthTextInput, AuthPressable } from '../components';
@@ -35,14 +35,14 @@ const AuthScreen = () => {
         );
     };
 
-    const loginHandler = () => {
+    const loginHandler = async () => {
         if (email.length === 0 || password.length === 0) {
             missingFieldsToast();
             return;
         }
 
-        return signInWithEmailAndPassword(auth, email, password)
-            .then(userCredentials => {
+        await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredentials) => {
                 const user = userCredentials.user;
 
                 // To show the user object returned
@@ -50,7 +50,7 @@ const AuthScreen = () => {
 
                 restoreForm();
             })
-            .catch(error => {
+            .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
 
@@ -58,14 +58,14 @@ const AuthScreen = () => {
             });
     };
 
-    const signUpHandler = () => {
+    const signUpHandler = async () => {
         if (email.length === 0 || password.length === 0) {
             missingFieldsToast();
             return;
         }
 
-        return createUserWithEmailAndPassword(auth, email, password)
-            .then(userCredentials => {
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredentials) => {
                 const user = userCredentials.user;
 
                 // To show the user object returned
@@ -74,7 +74,7 @@ const AuthScreen = () => {
                 restoreForm();
                 signUpToast();
             })
-            .catch(error => {
+            .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
 
@@ -102,13 +102,13 @@ const AuthScreen = () => {
                 </Text>
                 <AuthTextInput
                     value={email}
-                    placeholder='Your Email'
+                    placeholder="Your Email"
                     textHandler={setEmail}
-                    keyboardType='email-address'
+                    keyboardType="email-address"
                 />
                 <AuthTextInput
                     value={password}
-                    placeholder='Your Password'
+                    placeholder="Your Password"
                     textHandler={setPassword}
                     secureTextEntry
                 />
@@ -132,18 +132,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBECF0',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     boldText: {
-        fontWeight: '400'
+        fontWeight: '400',
     },
     welcomeText: {
         fontSize: 32,
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 20,
     },
     authText: {
         fontSize: 20,
-        marginBottom: 10
-    }
+        marginBottom: 10,
+    },
 });
